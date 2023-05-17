@@ -10,8 +10,8 @@ public abstract class PersistenceObject<ID extends Serializable>{
     protected ID id;
 
     @Column(name = "create_at")
-    protected Instant createAt;
+    protected String createAt;
 
     @Column(name = "update_at")
-    protected Instant updateAt;
+    protected String updateAt;
 }

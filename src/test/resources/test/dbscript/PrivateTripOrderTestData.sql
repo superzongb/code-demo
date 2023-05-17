@@ -1,0 +1,1 @@
+insert into `t_private_trip_order` (`id`, `total_amount`, `owner_id`, `create_at`, `update_at`) values (1, 1000.00, '1', '2023-05-09 00:00:00', '2023-05-09 10:00:00')

@@ -1,6 +1,10 @@
 package com.hakunamatata.demo.adapter.driven.persistence.oracle.command.privatetrip;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class JpaPrivateTripOrderRepo implements Repository<PrivateTripOrderPo, Long> {
+
+import java.util.Optional;
+
+public interface JpaPrivateTripOrderRepo extends JpaRepository<PrivateTripOrderPo, Long> {
+
 }
