@@ -23,6 +23,6 @@ public class ChangePaymentResource {
                            @PathVariable("oid") long orderId,
                            @PathVariable("cid") long changeId) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(privateTripChangeCmd.pay(enterpriseId, orderId, changeId));
+        return ResponseEntity.status(HttpStatus.CREATED).body(privateTripChangeCmd.payChangeOrder(enterpriseId, orderId, changeId));
     }
 }

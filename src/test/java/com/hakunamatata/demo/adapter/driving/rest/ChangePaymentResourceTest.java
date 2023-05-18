@@ -26,13 +26,13 @@ class ChangePaymentResourceTest extends ResourceTest {
         void given_a_waiting_for_pay_change_order_when_pay_then_return_payment() {
 
             String enterpriseId = "e001";
-            Long orderId = 1l;
+            Long orderId = 1L;
             Long changeId = 1L;
 
             PaymentDto paymentDto = new PaymentDto(1L, LocalDateTime.now(), "AliPay", new BigDecimal("1000.99"),
                     "https://www.alipay.com/payments/xyz");
 
-            BDDMockito.given(privateTripChangeCmd.pay(enterpriseId, orderId, changeId)).willReturn(paymentDto);
+            BDDMockito.given(privateTripChangeCmd.payChangeOrder(enterpriseId, orderId, changeId)).willReturn(paymentDto);
 
             given()
                     .contentType(ContentType.JSON)
@@ -45,6 +45,7 @@ class ChangePaymentResourceTest extends ResourceTest {
                     .body("id", is(1))
                     .body("paymentUrl", containsString("www.alipay.com"));
         }
+
     }
 
 }

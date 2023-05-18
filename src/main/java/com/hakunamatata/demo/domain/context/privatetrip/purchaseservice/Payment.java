@@ -20,7 +20,9 @@ public class Payment {
     private final String purchaseType;
     private final BigDecimal amount;
     private final String description;
+    private final String paymentUrl;
     private PaymentConfirmation confirmation;
+
 
     public void confirm(PaymentConfirmation confirmation) throws PaymentBalanceInsufficientException, PaymentFailedException {
         if (this.id != confirmation.getPaymentId()) {
@@ -43,4 +45,5 @@ public class Payment {
             throw new PaymentFailedException("payment failed.");
         }
     }
+
 }
