@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Optional;
 
+import static com.hakunamatata.demo.domain.context.privatetrip.trip.ChangeState.PAYING;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
@@ -62,9 +63,13 @@ class ChangeServiceTest {
             given(privateTripOrderRepository.findById(orderId)).willReturn(Optional.of(order));
             given(purchaseService.pay(any(), any(), any())).willReturn(mock(Payment.class));
             given(purchaseServiceRepository.findByType(eq("AliPay"))).willReturn(purchaseService);
+
+            //when
             Payment payment = changeService.payForChange(enterPriseId, orderId, changeId, purchaseType);
 
+            //then
             assertThat(payment).isNotNull();
+            assertThat(changeOrder.getState()).isEqualTo(PAYING);
             verify(purchaseService).pay(eq(changeId), eq(changeOrder.getTotalAmount()), any());
         }
     }
