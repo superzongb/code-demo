@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.testcontainers.shaded.com.google.common.collect.ImmutableMap;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -28,14 +29,16 @@ class ChangePaymentResourceTest extends ResourceTest {
             String enterpriseId = "e001";
             Long orderId = 1L;
             Long changeId = 1L;
+            String purchaseType = "AliPay";
 
             PaymentDto paymentDto = new PaymentDto(1L, LocalDateTime.now(), "AliPay", new BigDecimal("1000.99"),
                     "https://www.alipay.com/payments/xyz");
 
-            BDDMockito.given(privateTripChangeCmd.payChangeOrder(enterpriseId, orderId, changeId)).willReturn(paymentDto);
+            BDDMockito.given(privateTripChangeCmd.payChangeOrder(enterpriseId, orderId, changeId, purchaseType)).willReturn(paymentDto);
 
             given()
                     .contentType(ContentType.JSON)
+                    .body(ImmutableMap.of("purchaseType", "AliPay"))
                     .when()
                     .post(String.format("/enterprise/%s/private-orders/%d/changes/%d/payment", enterpriseId, orderId, changeId))
                     .then()

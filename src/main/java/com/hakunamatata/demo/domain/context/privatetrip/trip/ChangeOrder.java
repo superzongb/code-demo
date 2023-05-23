@@ -18,8 +18,8 @@ public class ChangeOrder extends BaseOrder {
     private final Flight newFlight;
 
     @Override
-    public void pay(PurchaseService service) throws IllegalOrderStateException {
-        super.pay(service);
+    public void pay(PurchaseServiceRepository purchaseServiceRepository, String purchaseType) throws IllegalOrderStateException {
+        super.pay(purchaseServiceRepository, purchaseType);
     }
 
     @Override

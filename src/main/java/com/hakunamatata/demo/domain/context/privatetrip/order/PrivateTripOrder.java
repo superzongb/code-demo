@@ -4,10 +4,7 @@ import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Flight;
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Passenger;
 import com.hakunamatata.demo.domain.context.privatetrip.baseorder.BaseOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.baseorder.IllegalOrderStateException;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentBalanceInsufficientException;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentConfirmation;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentFailedException;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PurchaseService;
+import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.*;
 import com.hakunamatata.demo.domain.context.privatetrip.trip.ChangeOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.trip.Trip;
 import lombok.Builder;
@@ -61,11 +58,11 @@ public class PrivateTripOrder extends BaseOrder {
     }
 
     @Override
-    public void pay(PurchaseService service) throws IllegalOrderStateException {
+    public void pay(PurchaseServiceRepository purchaseServiceRepository, String purchaseType) throws IllegalOrderStateException {
         if (state != OrderState.WAITING_FOR_PAY) {
             throw new IllegalOrderStateException("Cannot pay.", state);
         }
-        super.pay(service);
+        super.pay(purchaseServiceRepository, purchaseType);
         this.state = OrderState.PAYMENT_ONGOING;
     }
 

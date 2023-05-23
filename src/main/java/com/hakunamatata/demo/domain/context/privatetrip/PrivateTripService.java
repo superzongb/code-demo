@@ -8,8 +8,7 @@ import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentC
 import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PurchaseService;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
-import com.hakunamatata.demo.domain.context.privatetrip.trip.Trip;
-import com.hakunamatata.demo.domain.context.privatetrip.trip.TripRepository;
+import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PurchaseServiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 
@@ -26,7 +25,7 @@ public class PrivateTripService {
 
     private final PrivateTripOrderRepository orderRepository;
 
-    private final PurchaseService purchaseService;
+    private final PurchaseServiceRepository purchaseServiceRepository;
 
     public Payment pay(long orderId, String ownerId, String purchaseType) throws IllegalAccessException, IllegalOrderStateException {
         PrivateTripOrder order = orderRepository.findById(orderId)
@@ -36,7 +35,7 @@ public class PrivateTripService {
             throw new IllegalAccessException();
         }
 
-        order.pay(purchaseService);
+        order.pay(purchaseServiceRepository, purchaseType);
 
         orderRepository.save(order);
 

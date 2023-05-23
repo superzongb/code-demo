@@ -1,10 +1,6 @@
 package com.hakunamatata.demo.domain.context.privatetrip.baseorder;
 
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentBalanceInsufficientException;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentFailedException;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.Payment;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentConfirmation;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PurchaseService;
+import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
@@ -25,15 +21,12 @@ import java.util.Optional;
 public abstract class BaseOrder {
     @Getter
     protected final long id;
-
-    @Builder.Default
-    protected BigDecimal totalAmount = BigDecimal.ZERO;
-
-    protected String description;
-
     @Getter
     protected final String ownerId;
-
+    @Builder.Default
+    @Getter
+    protected BigDecimal totalAmount = BigDecimal.ZERO;
+    protected String description;
     List<Payment> payments;
 
     LocalDateTime createAt;
@@ -46,13 +39,15 @@ public abstract class BaseOrder {
         this.totalAmount = this.totalAmount.add(amount);
     }
 
-    public void pay(PurchaseService service) throws IllegalOrderStateException {
+    public void pay(PurchaseServiceRepository purchaseServiceRepository, String purchaseType) throws IllegalOrderStateException {
+        PurchaseService service = purchaseServiceRepository.findByType(purchaseType);
+        Payment payment = service.pay(this.id, this.totalAmount, this.description);
         Optional.ofNullable(payments)
                 .orElseGet(() -> {
                     this.payments = new ArrayList<>();
                     return payments;
                 })
-                .add(service.pay(this.id, this.totalAmount, this.description));
+                .add(payment);
     }
 
     public void paid(PaymentConfirmation confirmation) throws PaymentBalanceInsufficientException, PaymentFailedException, IllegalOrderStateException {

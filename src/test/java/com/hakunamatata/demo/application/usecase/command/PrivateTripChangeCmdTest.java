@@ -33,7 +33,8 @@ class PrivateTripChangeCmdTest {
             long changeId = 1L;
             long orderId = 1L;
             String enterpriseId = "e001";
-            BDDMockito.given(changeService.payForChange(enterpriseId, orderId, changeId))
+            String purchaseType = "AliPay";
+            BDDMockito.given(changeService.payForChange(enterpriseId, orderId, changeId, purchaseType))
                     .willReturn(Payment.builder()
                             .id(1L)
                             .amount(new BigDecimal("1000.99"))
@@ -42,7 +43,7 @@ class PrivateTripChangeCmdTest {
                             .paymentUrl("https://www.alipay.com/payments/xyz")
                             .build());
 
-            PaymentDto result = privateTripChangeCmd.payChangeOrder(enterpriseId, orderId, changeId);
+            PaymentDto result = privateTripChangeCmd.payChangeOrder(enterpriseId, orderId, changeId, purchaseType);
 
             assertThat(result).isNotNull();
             assertThat(result.getPurchaseType()).isEqualTo("AliPay");

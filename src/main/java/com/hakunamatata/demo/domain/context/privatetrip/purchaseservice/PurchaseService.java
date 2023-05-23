@@ -8,5 +8,5 @@ import java.math.BigDecimal;
  * @description:
  */
 public interface PurchaseService {
-    Payment pay(long orderId, BigDecimal amount, String description);
+    Payment pay(Long orderId, BigDecimal amount, String description);
 }

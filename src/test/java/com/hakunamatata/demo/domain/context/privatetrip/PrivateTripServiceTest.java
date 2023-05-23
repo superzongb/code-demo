@@ -7,11 +7,7 @@ import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.AirlineBo
 import com.hakunamatata.demo.domain.context.privatetrip.order.OrderState;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.ConfirmType;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.Payment;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentConfirmation;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PurchaseService;
-import com.hakunamatata.demo.domain.context.privatetrip.trip.TripRepository;
+import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.*;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -38,6 +34,8 @@ class PrivateTripServiceTest {
 
     private PrivateTripOrderRepository orderRepository;
 
+    private PurchaseServiceRepository purchaseServiceRepository;
+
     private PurchaseService purchaseService;
 
     private AirlineBookingService airlineBookingService;
@@ -47,8 +45,9 @@ class PrivateTripServiceTest {
         orderRepository = mock(PrivateTripOrderRepository.class);
         purchaseService = spy(PurchaseService.class);
         airlineBookingService = spy(AirlineBookingService.class);
+        purchaseServiceRepository = mock(PurchaseServiceRepository.class);
 
-        privateTripService = new PrivateTripService(orderRepository, purchaseService);
+        privateTripService = new PrivateTripService(orderRepository, purchaseServiceRepository);
     }
 
     @NotNull
@@ -88,9 +87,10 @@ class PrivateTripServiceTest {
                 .purchaseType("pay")
                 .description("test order")
                 .build();
+        given(purchaseServiceRepository.findByType(anyString())).willReturn(purchaseService);
         willReturn(payment).given(purchaseService).pay(anyLong(), any(), any());
         try {
-            order.pay(purchaseService);
+            order.pay(purchaseServiceRepository, "AliPay");
         } catch (IllegalOrderStateException e) {
             throw new RuntimeException(e);
         }
@@ -106,10 +106,11 @@ class PrivateTripServiceTest {
             PrivateTripOrder order = createTestOrder();
             given(orderRepository.findById(1L)).willReturn(Optional.of(order));
             Payment expectPayment = mock(Payment.class);
+            given(purchaseServiceRepository.findByType(eq("AliPay"))).willReturn(purchaseService);
             willReturn(expectPayment).given(purchaseService).pay(anyLong(), any(), any());
 
             //when
-            Payment payment = privateTripService.pay(1L, "user", "pay");
+            Payment payment = privateTripService.pay(1L, "user", "AliPay");
 
             //then
             assertThat(payment).isEqualTo(expectPayment);

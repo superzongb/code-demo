@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -21,8 +22,8 @@ public class ChangePaymentResource {
     @PostMapping
     ResponseEntity<?> post(@PathVariable("enterprise-id") String enterpriseId,
                            @PathVariable("oid") long orderId,
-                           @PathVariable("cid") long changeId) {
+                           @PathVariable("cid") long changeId, @RequestBody PayRequest payRequest) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(privateTripChangeCmd.payChangeOrder(enterpriseId, orderId, changeId));
+        return ResponseEntity.status(HttpStatus.CREATED).body(privateTripChangeCmd.payChangeOrder(enterpriseId, orderId, changeId, payRequest.getPurchaseType()));
     }
 }
