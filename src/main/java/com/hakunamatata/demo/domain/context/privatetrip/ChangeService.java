@@ -1,6 +1,5 @@
 package com.hakunamatata.demo.domain.context.privatetrip;
 
-import com.hakunamatata.demo.domain.context.privatetrip.baseorder.IllegalOrderStateException;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
 import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.Payment;
@@ -29,6 +28,8 @@ public class ChangeService {
                 .orElseThrow(EntityNotFoundException::new);
 
         changeOrder.pay(purchaseServiceRepository, purchaseType);
+
+        privateTripOrderRepository.save(order);
 
         return changeOrder.getPayment();
     }

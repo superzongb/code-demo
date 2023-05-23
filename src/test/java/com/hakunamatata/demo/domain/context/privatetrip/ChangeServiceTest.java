@@ -12,11 +12,13 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 import static com.hakunamatata.demo.domain.context.privatetrip.trip.ChangeState.PAYING;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
@@ -57,7 +59,7 @@ class ChangeServiceTest {
 
             PrivateTripOrder order = PrivateTripOrder.builder()
                     .id(orderId)
-                    .changes(Arrays.asList(changeOrder))
+                    .changes(Collections.singletonList(changeOrder))
                     .build();
 
             given(privateTripOrderRepository.findById(orderId)).willReturn(Optional.of(order));
@@ -73,5 +75,4 @@ class ChangeServiceTest {
             verify(purchaseService).pay(eq(changeId), eq(changeOrder.getTotalAmount()), any());
         }
     }
-
 }

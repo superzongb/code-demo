@@ -9,4 +9,6 @@ import java.math.BigDecimal;
  */
 public interface PurchaseService {
     Payment pay(Long orderId, BigDecimal amount, String description);
+
+    String getType();
 }
