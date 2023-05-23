@@ -44,28 +44,28 @@ class ChangeServiceTest {
         void given_private_trip_order_with_change_when_pay_for_change_then_get_payment() {
             String enterPriseId = "e001";
             long orderId = 1L;
-            long changeId = 1L;
+            long changeId = 3L;
             String purchaseType = "AliPay";
 
 
             //given
             ChangeOrder changeOrder = ChangeOrder.builder()
-                    .id(1L)
+                    .id(changeId)
                     .totalAmount(new BigDecimal("1000.99"))
                     .build();
 
             PrivateTripOrder order = PrivateTripOrder.builder()
-                    .id(1L)
+                    .id(orderId)
                     .changes(Arrays.asList(changeOrder))
                     .build();
 
-            given(privateTripOrderRepository.findById(1L)).willReturn(Optional.of(order));
+            given(privateTripOrderRepository.findById(orderId)).willReturn(Optional.of(order));
             given(purchaseService.pay(any(), any(), any())).willReturn(mock(Payment.class));
             given(purchaseServiceRepository.findByType(eq("AliPay"))).willReturn(purchaseService);
             Payment payment = changeService.payForChange(enterPriseId, orderId, changeId, purchaseType);
 
             assertThat(payment).isNotNull();
-            verify(purchaseService).pay(eq(1L), eq(changeOrder.getTotalAmount()), any());
+            verify(purchaseService).pay(eq(changeId), eq(changeOrder.getTotalAmount()), any());
         }
     }
 
