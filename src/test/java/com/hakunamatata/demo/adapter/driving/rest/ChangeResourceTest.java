@@ -59,9 +59,9 @@ class ChangeResourceTest extends ResourceTest {
                     .body(ImmutableMap.of("flight", ImmutableMap.of("price", "A1000.999",
                             "flightCode", "CA9977",
                             "date", "2023-04-11",
-                            "airlineCorp", "CA")))
+                            "airlineCorp", "CA"), "changingTripId", "1"))
                     .when()
-                    .post("/enterprise/e001/private-orders/1/trips/1/change")
+                    .post("/enterprise/e001/private-orders/1/changes")
                     .then()
                     .log()
                     .all()
@@ -79,9 +79,9 @@ class ChangeResourceTest extends ResourceTest {
                     .body(ImmutableMap.of("flight", ImmutableMap.of("price", "A1000.999",
                             "flightCode", "CA9977",
                             "date", "2023-04-11",
-                            "airlineCorp", "CA")))
+                            "airlineCorp", "CA"), "changingTripId", "1"))
                     .when()
-                    .post("/enterprise/e001/private-orders/1/trips/1/change")
+                    .post("/enterprise/e001/private-orders/1/changes")
                     .then()
                     .log()
                     .all()
