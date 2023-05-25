@@ -8,6 +8,7 @@ import org.mockito.BDDMockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 class PurchaseServiceRepositoryImplTest {
@@ -21,19 +22,29 @@ class PurchaseServiceRepositoryImplTest {
 
     @Test
     void given_exist_service_when_find_by_type_then_success() {
+        //given
         PurchaseService purchaseService = mock(PurchaseService.class);
-        BDDMockito.given(purchaseService.getType()).willReturn("AliPay");
+        String purchaseType = "AliPay";
+        given(purchaseService.getType()).willReturn(purchaseType);
         purchaseServiceRepository.register(purchaseService);
-        PurchaseService result = purchaseServiceRepository.findByType("AliPay");
+
+        //when
+        PurchaseService result = purchaseServiceRepository.findByType(purchaseType);
+
+        //then
         assertThat(result).isEqualTo(purchaseService);
     }
 
     @Test
     void given_not_exist_service_when_find_by_type_then_throw_not_supported() {
+        //given
+        String purchaseType = "AliPay";
+
+        //when & then
         assertThatThrownBy(() -> {
-            PurchaseService result = purchaseServiceRepository.findByType("AliPay");
+            purchaseServiceRepository.findByType(purchaseType);
         })
                 .isInstanceOf(NotSupportedPurchaseService.class)
-                .hasMessageContaining("AliPay");
+                .hasMessageContaining(purchaseType);
     }
 }

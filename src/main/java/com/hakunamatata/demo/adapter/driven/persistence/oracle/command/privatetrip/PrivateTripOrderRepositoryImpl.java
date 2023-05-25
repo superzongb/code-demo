@@ -6,14 +6,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class PrivateTripOrderRepositoryImpl implements PrivateTripOrderRepository {
 
     private final JpaPrivateTripOrderRepo jpaPrivateTripOrderRepo;
+
+    private final JpaChangeOrderRepo jpaChangeOrderRepo;
+
+    private final JpaPaymentRepo jpaPaymentRepo;
 
     @Override
     public Optional<PrivateTripOrder> findById(long orderId) {
@@ -31,6 +37,20 @@ public class PrivateTripOrderRepositoryImpl implements PrivateTripOrderRepositor
 
     @Override
     public void save(PrivateTripOrder order) {
+        jpaPaymentRepo.saveAll(order.getChanges().parallelStream()
+                .map(change ->
+                        change.getPayments().stream()
+                                .map(p -> PaymentPo.of(p, change.getId()))
+                                .collect(Collectors.toList())
+                )
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList()));
 
+
+        jpaChangeOrderRepo.saveAll(order.getChanges().stream()
+                .map(c -> ChangeOrderPo.of(c, order.getId()))
+                .collect(Collectors.toList()));
+
+        jpaPrivateTripOrderRepo.save(PrivateTripOrderPo.of(order));
     }
 }
