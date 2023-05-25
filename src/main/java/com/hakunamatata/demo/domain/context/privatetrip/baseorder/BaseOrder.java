@@ -28,9 +28,9 @@ public abstract class BaseOrder {
     protected BigDecimal totalAmount = BigDecimal.ZERO;
     protected String description;
     @Getter
-    List<Payment> payments;
-    @Getter
     protected LocalDateTime createAt;
+    @Getter
+    List<Payment> payments;
 
     public void submit() throws IllegalOrderStateException {
         this.createAt = LocalDateTime.now();

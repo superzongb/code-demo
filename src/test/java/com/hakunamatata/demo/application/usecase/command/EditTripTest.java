@@ -1,10 +1,10 @@
 package com.hakunamatata.demo.application.usecase.command;
 
 import com.hakunamatata.demo.application.dto.FlightDto;
-import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Flight;
 import com.hakunamatata.demo.domain.context.privatetrip.SingleTripService;
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.AirlineBookingService;
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.AirlineCorpRepository;
+import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Flight;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

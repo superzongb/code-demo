@@ -27,8 +27,7 @@ public class Trip {
 
     }
 
-    public void cancel()
-    {
+    public void cancel() {
 
     }
 

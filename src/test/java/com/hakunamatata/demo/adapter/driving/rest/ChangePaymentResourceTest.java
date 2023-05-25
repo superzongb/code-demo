@@ -14,7 +14,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 
 class ChangePaymentResourceTest extends ResourceTest {
 

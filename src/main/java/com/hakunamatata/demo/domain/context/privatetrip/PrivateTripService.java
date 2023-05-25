@@ -3,11 +3,10 @@ package com.hakunamatata.demo.domain.context.privatetrip;
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Flight;
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Passenger;
 import com.hakunamatata.demo.domain.context.privatetrip.baseorder.IllegalOrderStateException;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.Payment;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentConfirmation;
-import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PurchaseService;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
+import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.Payment;
+import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PaymentConfirmation;
 import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PurchaseServiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
@@ -45,7 +44,6 @@ public class PrivateTripService {
     public void paid(long orderId, PaymentConfirmation confirmation) throws IllegalOrderStateException {
         PrivateTripOrder order = orderRepository.findById(orderId)
                 .orElseThrow(EntityExistsException::new);
-
 
 
         order.paid(confirmation);

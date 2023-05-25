@@ -1,6 +1,5 @@
 package com.hakunamatata.demo.domain.context.privatetrip.airlineservice;
 
-import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.AirlineBookingService;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 

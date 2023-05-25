@@ -4,7 +4,6 @@ import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.NotSuppo
 import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PurchaseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

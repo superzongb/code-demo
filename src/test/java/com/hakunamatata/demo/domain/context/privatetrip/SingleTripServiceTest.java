@@ -9,14 +9,12 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.mockito.Mockito.mock;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+
 class SingleTripServiceTest {
 
     private SingleTripService singleTripService;
@@ -30,17 +28,17 @@ class SingleTripServiceTest {
     }
 
     @Nested
-    class changeToNewFlight{
+    class changeToNewFlight {
         @Test
         void given_an_unused_trip_when_change_then_succeed() {
             Flight flight = Flight.builder()
-                            .build();
+                    .build();
             Trip trip = Trip.builder()
                     .id(1L)
                     .build();
             PrivateTripOrder order = PrivateTripOrder.builder()
                     .id(1L)
-                    .trips(Arrays.asList(trip))
+                    .trips(Collections.singletonList(trip))
                     .build();
             BDDMockito.given(privateTripOrderRepository.findById(1L))
                     .willReturn(Optional.of(order));

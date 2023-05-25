@@ -39,7 +39,7 @@ class ChangeResourceTest extends ResourceTest {
                     .body(ImmutableMap.of("flight", ImmutableMap.of("price", "A1000.999",
                             "flightCode", "CA9977",
                             "date", "2023-04-11",
-                            "airlineCorp", "CA"), "changingTripId","1"))
+                            "airlineCorp", "CA"), "changingTripId", "1"))
                     .when()
                     .post("/enterprise/e001/private-orders/1/changes")
                     .then()
@@ -70,7 +70,7 @@ class ChangeResourceTest extends ResourceTest {
         }
 
         @Test
-        void given_a_refunded_trip_when_change_then_forbidden(){
+        void given_a_refunded_trip_when_change_then_forbidden() {
             BDDMockito.willThrow(new IllegalEntityStateException("Trip has been canceled."))
                     .given(editTrip).changeTrip(anyString(), anyLong(), anyLong(), any(FlightDto.class));
 

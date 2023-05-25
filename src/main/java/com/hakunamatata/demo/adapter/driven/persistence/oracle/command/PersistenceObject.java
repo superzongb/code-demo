@@ -2,13 +2,14 @@ package com.hakunamatata.demo.adapter.driven.persistence.oracle.command;
 
 import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
-import java.time.Instant;
 
 @MappedSuperclass
 @Getter
-public abstract class PersistenceObject<ID extends Serializable>{
+public abstract class PersistenceObject<ID extends Serializable> {
     @Id
     protected ID id;
 

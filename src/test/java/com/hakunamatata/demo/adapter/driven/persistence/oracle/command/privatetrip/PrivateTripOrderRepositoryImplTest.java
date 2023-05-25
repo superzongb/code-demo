@@ -3,6 +3,7 @@ package com.hakunamatata.demo.adapter.driven.persistence.oracle.command.privatet
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.Payment;
 import com.hakunamatata.demo.domain.context.privatetrip.trip.ChangeOrder;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,13 @@ class PrivateTripOrderRepositoryImplTest {
 
     @Autowired
     private JpaPaymentRepo jpaPaymentRepo;
+
+    @AfterEach
+    void tearDown() {
+        jpaPrivateTripOrderRepo.deleteAll();
+        jpaChangeOrderRepo.deleteAll();
+        jpaPaymentRepo.deleteAll();
+    }
 
     @Nested
     class findById {

@@ -1,9 +1,9 @@
 package com.hakunamatata.demo.domain.context.privatetrip;
 
+import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.AirlineBookingService;
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Flight;
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Passenger;
 import com.hakunamatata.demo.domain.context.privatetrip.baseorder.IllegalOrderStateException;
-import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.AirlineBookingService;
 import com.hakunamatata.demo.domain.context.privatetrip.order.OrderState;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
@@ -119,6 +119,7 @@ class PrivateTripServiceTest {
                     .pay(eq(1L), eq(BigDecimal.valueOf(1000L)), eq("test order"));
 
         }
+
         @Test
         void given_an_order_belongs_to_other_when_pay_then_illegal_access() {
             // given
@@ -138,7 +139,6 @@ class PrivateTripServiceTest {
                     .isInstanceOf(IllegalOrderStateException.class)
                     .hasMessageContaining("Cannot pay.");
         }
-
 
 
     }
@@ -187,7 +187,7 @@ class PrivateTripServiceTest {
             // then
             assertThat(order.getState()).isSameAs(OrderState.WAITING_FOR_PAY);
             verify(airlineBookingService, times(0))
-                    .book(any(),any(),any(),any());
+                    .book(any(), any(), any(), any());
         }
     }
 }
