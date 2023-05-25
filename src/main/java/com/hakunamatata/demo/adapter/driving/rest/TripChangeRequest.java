@@ -14,6 +14,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class TripChangeRequest {
 
+    @NotNull
+    private Long changingTripId;
+
     @Valid
     @NotNull(message = "Must have new flight.")
     private FlightDto flight;

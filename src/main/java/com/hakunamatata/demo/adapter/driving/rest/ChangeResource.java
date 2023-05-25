@@ -23,7 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  */
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/enterprise/{enterprise-id}/private-orders/{oid}/trips/{tid}/change", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/enterprise/{enterprise-id}/private-orders/{oid}/changes", produces = APPLICATION_JSON_VALUE)
 public class ChangeResource {
 
     private final EditTrip editTrip;
@@ -31,10 +31,9 @@ public class ChangeResource {
     @PostMapping
     ResponseEntity<?> post(@PathVariable("enterprise-id") String enterpriseId,
                            @PathVariable("oid") long orderId,
-                           @PathVariable("tid") long tripId,
                            @RequestBody @Validated TripChangeRequest request) {
         try {
-            Long changeId = editTrip.changeTrip(enterpriseId, orderId, tripId, request.getFlight());
+            Long changeId = editTrip.changeTrip(enterpriseId, orderId, request.getChangingTripId(), request.getFlight());
             return ResponseEntity.status(HttpStatus.CREATED).body(ImmutableMap.of("changeId", changeId));
         } catch (EntityNotExistedException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ImmutableMap.of("message", e.getMessage()));
