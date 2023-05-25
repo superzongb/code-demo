@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 class ChangePaymentResourceTest extends ResourceTest {
@@ -32,8 +31,9 @@ class ChangePaymentResourceTest extends ResourceTest {
             Long changeId = 1L;
             String purchaseType = "AliPay";
 
+            String paymentUrl = "https://www.alipay.com/payments/xyz";
             PaymentDto paymentDto = new PaymentDto(1L, LocalDateTime.now(), "AliPay", new BigDecimal("1000.99"),
-                    "https://www.alipay.com/payments/xyz");
+                    paymentUrl);
 
             BDDMockito.given(privateTripChangeCmd.payChangeOrder(enterpriseId, orderId, changeId, purchaseType)).willReturn(paymentDto);
 
@@ -47,7 +47,7 @@ class ChangePaymentResourceTest extends ResourceTest {
                     .all()
                     .statusCode(HttpStatus.SC_CREATED)
                     .body("id", is(1))
-                    .body("paymentUrl", containsString("www.alipay.com"));
+                    .body("paymentUrl", is(paymentUrl));
         }
 
     }
