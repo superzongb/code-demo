@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -36,5 +37,15 @@ public class PaymentPo extends PersistenceObject<Long> {
         po.purchaseType = p.getPurchaseType();
         po.paymentUrl = p.getPaymentUrl();
         return po;
+    }
+
+    public Payment toDomain() {
+        return Payment.builder()
+                .id(this.id)
+                .amount(this.amount)
+                .purchaseType(this.purchaseType)
+                .paymentUrl(this.paymentUrl)
+                .createAt(LocalDateTime.parse(this.createAt, DefaultDateTimeFormatter.getFormatter()))
+                .build();
     }
 }

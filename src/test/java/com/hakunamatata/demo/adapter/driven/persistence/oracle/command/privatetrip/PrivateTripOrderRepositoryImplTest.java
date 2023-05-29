@@ -44,10 +44,13 @@ class PrivateTripOrderRepositoryImplTest {
         @Test
         @Sql("/test/dbscript/PrivateTripOrderTestData.sql")
         void given_existed_record_in_db_when_find_then_success() {
-            Optional<PrivateTripOrder> order = privateTripOrderRepository.findById(1L);
+            PrivateTripOrder order = privateTripOrderRepository.findById(1L)
+                    .get();
 
-            assertThat(order.get()).isNotNull();
-            assertThat(order.get().getOwnerId()).isEqualTo("1");
+            assertThat(order).isNotNull();
+            assertThat(order.getOwnerId()).isEqualTo("1");
+            assertThat(order.getChanges().size()).isEqualTo(2);
+
         }
     }
 

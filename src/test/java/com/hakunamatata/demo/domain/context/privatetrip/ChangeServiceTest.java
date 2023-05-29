@@ -73,5 +73,6 @@ class ChangeServiceTest {
             assertThat(changeOrder.getState()).isEqualTo(PAYING);
             verify(purchaseService).pay(eq(changeId), eq(changeOrder.getTotalAmount()), any());
         }
+
     }
 }

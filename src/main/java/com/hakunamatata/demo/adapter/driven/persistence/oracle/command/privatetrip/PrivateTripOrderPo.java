@@ -3,12 +3,15 @@ package com.hakunamatata.demo.adapter.driven.persistence.oracle.command.privatet
 import com.hakunamatata.demo.adapter.driven.persistence.oracle.command.PersistenceObject;
 import com.hakunamatata.demo.common.utils.DefaultDateTimeFormatter;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
+import com.hakunamatata.demo.domain.context.privatetrip.trip.ChangeOrder;
+import com.hakunamatata.demo.domain.context.privatetrip.trip.Trip;
 import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,11 +33,13 @@ public class PrivateTripOrderPo extends PersistenceObject<Long> {
         return po;
     }
 
-    public PrivateTripOrder toDomain() {
+    public PrivateTripOrder toDomain(List<ChangeOrder> changes, List<Trip> trips) {
         return PrivateTripOrder.builder()
                 .id(this.id)
                 .ownerId(this.ownerId)
                 .totalAmount(this.totalAmount)
+                .changes(changes)
+                .trips(trips)
                 .build();
     }
 }

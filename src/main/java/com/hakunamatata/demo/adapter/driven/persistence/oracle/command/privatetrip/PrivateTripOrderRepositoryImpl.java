@@ -2,6 +2,7 @@ package com.hakunamatata.demo.adapter.driven.persistence.oracle.command.privatet
 
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
+import com.hakunamatata.demo.domain.context.privatetrip.trip.ChangeOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,16 @@ public class PrivateTripOrderRepositoryImpl implements PrivateTripOrderRepositor
 
         PrivateTripOrderPo orderPo = jpaPrivateTripOrderRepo.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
-        return Optional.of(orderPo.toDomain());
+
+        List<ChangeOrder> changes = jpaChangeOrderRepo.findByTripOrderId(orderPo.getId()).stream()
+                .map(c -> {
+                    List<PaymentPo> paymentPos = jpaPaymentRepo.findByOrderId(c.getId());
+                    return c.toDomain(paymentPos.stream().map(PaymentPo::toDomain).collect(Collectors.toList()));
+                })
+                .collect(Collectors.toList());
+
+
+        return Optional.of(orderPo.toDomain(changes, null));
     }
 
     @Override
