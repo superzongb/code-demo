@@ -1,8 +1,8 @@
 package com.hakunamatata.demo.domain.context.privatetrip;
 
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Flight;
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrder;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrderRepository;
 import com.hakunamatata.demo.domain.context.privatetrip.trip.Trip;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

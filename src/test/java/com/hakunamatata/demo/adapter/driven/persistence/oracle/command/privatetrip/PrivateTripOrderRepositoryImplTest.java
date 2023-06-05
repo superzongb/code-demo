@@ -1,6 +1,6 @@
 package com.hakunamatata.demo.adapter.driven.persistence.oracle.command.privatetrip;
 
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.Payment;
 import com.hakunamatata.demo.domain.context.privatetrip.trip.ChangeOrder;
 import org.junit.jupiter.api.AfterEach;
@@ -13,7 +13,6 @@ import org.springframework.test.context.jdbc.Sql;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

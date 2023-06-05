@@ -2,7 +2,7 @@ package com.hakunamatata.demo.adapter.driven.persistence.oracle.command.privatet
 
 import com.hakunamatata.demo.adapter.driven.persistence.oracle.command.PersistenceObject;
 import com.hakunamatata.demo.common.utils.DefaultDateTimeFormatter;
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.trip.ChangeOrder;
 import com.hakunamatata.demo.domain.context.privatetrip.trip.Trip;
 import lombok.Getter;

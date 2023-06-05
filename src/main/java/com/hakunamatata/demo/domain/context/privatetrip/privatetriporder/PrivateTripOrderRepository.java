@@ -1,4 +1,4 @@
-package com.hakunamatata.demo.domain.context.privatetrip.order;
+package com.hakunamatata.demo.domain.context.privatetrip.privatetriporder;
 
 import java.util.List;
 import java.util.Optional;

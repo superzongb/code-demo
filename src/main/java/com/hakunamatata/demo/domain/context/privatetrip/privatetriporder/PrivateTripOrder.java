@@ -1,4 +1,4 @@
-package com.hakunamatata.demo.domain.context.privatetrip.order;
+package com.hakunamatata.demo.domain.context.privatetrip.privatetriporder;
 
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Flight;
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Passenger;

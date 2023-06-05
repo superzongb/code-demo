@@ -4,9 +4,9 @@ import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.AirlineBo
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Flight;
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Passenger;
 import com.hakunamatata.demo.domain.context.privatetrip.baseorder.IllegalOrderStateException;
-import com.hakunamatata.demo.domain.context.privatetrip.order.OrderState;
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.OrderState;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrder;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrderRepository;
 import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.*;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;

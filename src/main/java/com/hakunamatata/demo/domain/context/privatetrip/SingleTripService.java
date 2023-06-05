@@ -1,8 +1,8 @@
 package com.hakunamatata.demo.domain.context.privatetrip;
 
 import com.hakunamatata.demo.domain.context.privatetrip.airlineservice.Flight;
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrder;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.hakunamatata.demo.domain.context.privatetrip;
 
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrder;
-import com.hakunamatata.demo.domain.context.privatetrip.order.PrivateTripOrderRepository;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrder;
+import com.hakunamatata.demo.domain.context.privatetrip.privatetriporder.PrivateTripOrderRepository;
 import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.Payment;
 import com.hakunamatata.demo.domain.context.privatetrip.purchaseservice.PurchaseServiceRepository;
 import com.hakunamatata.demo.domain.context.privatetrip.trip.ChangeOrder;
